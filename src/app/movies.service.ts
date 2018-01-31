@@ -7,8 +7,8 @@ import { Injectable } from '@angular/core'
 
 export class MoviesService {
 
-	Storage: object = window.localStorage
-	favoriteMovies: object[] = []
+	Storage: any = window.localStorage
+	favoriteMovies: any[] = []
 
 	constructor(private http: Http) {
 
@@ -19,7 +19,7 @@ export class MoviesService {
 		return this.http.get(`http://www.omdbapi.com/?apikey=af3843e3&plot=full&s=${moviename}`)
 			.map((response: Response) => {
 				
-				let movies: object[] = response.json()
+				let movies: any = response.json()
 
 				movies.Search.forEach( (movie, k) => {
 					movie.favorite = false
@@ -42,7 +42,7 @@ export class MoviesService {
 			.map((response: Response) => response.json())
 	}
 
-	getFavorites(): Array {
+	getFavorites() {
 		if(this.Storage.getItem('favorites')) this.favoriteMovies = JSON.parse( this.Storage.getItem('favorites') )
 	}
 
@@ -52,7 +52,7 @@ export class MoviesService {
 		this.Storage.setItem( 'favorites', JSON.stringify(this.favoriteMovies) )
 	}
 
-	removeFromFavorites(movie: object): void {
+	removeFromFavorites(movie: any): void {
 		this.favoriteMovies = this.favoriteMovies.filter((elem) => elem.imdbID !== movie.imdbID)
 		this.Storage.setItem( 'favorites', JSON.stringify(this.favoriteMovies) )
 	}
