@@ -1,0 +1,24 @@
+<h1 class="mat-display-1">
+	Favorite movies
+</h1>
+<div *ngIf="service.favoriteMovies.length" class="flex-container">
+	<div *ngFor="let movie of service.favoriteMovies" class="flex-item">
+		<mat-card class="card">
+		  <mat-card-header>
+		    <div mat-card-avatar class="example-header-image"></div>
+		    <mat-card-title>{{ movie.Title }}</mat-card-title>
+		    <mat-card-subtitle class="year">{{ movie.Type}} - {{ movie.Year }}</mat-card-subtitle>
+		  </mat-card-header>
+		  <img mat-card-image src="{{ movie.Poster }}" alt="Photo of a Shiba Inu">
+		  <mat-card-content>
+		    <p>
+		      {{ movie.Plot }}
+		    </p>
+		  </mat-card-content>
+		  <div class="ta-c">
+			  <a  routerLink="/movie/{{ movie.imdbID }}" mat-raised-button color="primary">Details</a>
+			  <button mat-raised-button color="warn" (click)="service.removeFromFavorites(movie)">Remove</button>
+		  </div>
+		</mat-card>
+	</div>
+</div>

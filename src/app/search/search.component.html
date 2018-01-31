@@ -1,0 +1,37 @@
+<form class="search-movies">
+  <mat-form-field class="search-input">
+    <input 
+    	matInput
+    	name="movie"
+    	placeholder="Start typing the name of a movie"
+    	[(ngModel)]="searchStr"
+    	[minLength]="minLength"
+    	(ngModelChange)="handleChange()">
+  </mat-form-field>
+</form>
+
+<pre>
+	{{ movies }}
+</pre>
+
+<div *ngIf="moviesArray" class="flex-container">
+	<div *ngFor="let movie of moviesArray" class="flex-item">
+		<mat-card class="card">
+		  <mat-card-header>
+		    <div mat-card-avatar class="example-header-image"></div>
+		    <mat-card-title>{{ movie.Title }}</mat-card-title>
+		    <mat-card-subtitle class="year">{{ movie.Type}} - {{ movie.Year }}</mat-card-subtitle>
+		  </mat-card-header>
+		  <img mat-card-image src="{{ movie.Poster }}" alt="Photo of a Shiba Inu">
+		  <mat-card-content>
+		    <p>
+		      {{ movie.Plot }}
+		    </p>
+		  </mat-card-content>
+		  <div class="ta-c">
+			  <a  routerLink="/movie/{{ movie.imdbID }}" mat-raised-button color="primary">Details</a>
+			  <button mat-raised-button color="accent" (click)="service.addToFavorites(movie)" [(disabled)]="movie.favorite">Favorite</button>
+		  </div>
+		</mat-card>
+	</div>
+</div>
